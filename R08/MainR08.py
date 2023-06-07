@@ -101,6 +101,8 @@ if __name__ == '__main__':
         #Freq, S11, S12, S21, S22 = SParameter_Mag(CMT)
         Freq, S11, S12, S21, S22 = SParameter_ReImg(CMT)
 
+        ReImgPlot(Freq,S11,S12,S21,S22,position)
+
         #Guarda cada parámetro en el subdirectorio de la medicion de la posicion i
         SaveFrameCSV(np.transpose(np.vstack((Freq,S11))),directory+'/S11_'+str(position)+'cm.csv')
         SaveFrameCSV(np.transpose(np.vstack((Freq,S12))),directory+'/S12_'+str(position)+'cm.csv')
@@ -109,13 +111,20 @@ if __name__ == '__main__':
         print(f"Medición {i+1} finalizada")
         print("--------------------------------------------------------")
 
-    # Agregar acá función de readme.txt para comentar sobre las mediciones sobre la escena X
-    # El directorio a guardar es en main_directory
-    #ReadmeofMeas(main_directory)
-    #
+    
+    #Solicita la posición en cm del radar respecto al de ref. la posición 1 es la ref
+    print("\n--------------------------------------------------------")
+    descripcion = str(input(f"Ingrese una descripción de la medición realizada. Indique la escena que se tomó y si hubo incovenientes en algún paso:"))
+    metadata = str(datetime.datetime.now())
+
+    print("\n--------------------------------------------------------")
+    txt_descripcion = save_txt(descripcion+'\n' +metadata, main_directory+'_'+FolderName)
+    print("--------------------------------------------------------")
 
     print("\n--------------------------------------------------------")
     RawData = RawDataGeneration(main_directory,np.sort(positions))
+    print(type(RawData))
+    print(RawData.shape)
     print("--------------------------------------------------------")
 
 

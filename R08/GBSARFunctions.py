@@ -228,6 +228,7 @@ def RDPlot(Ski):
 def MagPlot(Freq,S11,S12,S21,S22,position):
     #Ploteo de resultados
     plt.figure(f"Measurement to {position} cm")
+    plt.suptitle(f"Medición de Parámetros S a {str(position)} cm")
     plt.subplot(221)
     plt.plot(Freq,S11)
     plt.xlabel("frecuency (Hz)")
@@ -256,52 +257,53 @@ def MagPlot(Freq,S11,S12,S21,S22,position):
 def ReImgPlot(Freq,S11,S12,S21,S22,position):
     #Ploteo de resultados
     plt.figure(f"Measurement to {position} cm")
+    plt.suptitle(f"Medición de Parámetros S a {str(position)} cm")
     plt.subplot(421)
     plt.plot(Freq,np.real(S11))
     plt.xlabel("frecuency (Hz)")
-    plt.ylabel("Power (mW)")
+    plt.ylabel("S11 real U")
     plt.grid()
     
     plt.subplot(422)
     plt.plot(Freq,np.imag(S11))
     plt.xlabel("frecuency (Hz)")
-    plt.ylabel("Power (mW)")
+    plt.ylabel("S11 img U")
     plt.grid()
     
     plt.subplot(423)
     plt.plot(Freq,np.real(S12))
     plt.xlabel("frecuency (Hz)")
-    plt.ylabel("Power (mW)")
+    plt.ylabel("S12 real U")
     plt.grid()
     
     plt.subplot(424)
     plt.plot(Freq,np.imag(S12))
     plt.xlabel("frecuency (Hz)")
-    plt.ylabel("Power (mW)")
+    plt.ylabel("S12 img U")
     plt.grid()
 
     plt.subplot(425)
     plt.plot(Freq,np.real(S21))
     plt.xlabel("frecuency (Hz)")
-    plt.ylabel("Power (mW)")
+    plt.ylabel("S21 real U")
     plt.grid()
     
     plt.subplot(426)
     plt.plot(Freq,np.imag(S21))
     plt.xlabel("frecuency (Hz)")
-    plt.ylabel("Power (mW)")
+    plt.ylabel("S21 img U")
     plt.grid()
 
     plt.subplot(427)
     plt.plot(Freq,np.real(S22))
     plt.xlabel("frecuency (Hz)")
-    plt.ylabel("Power (mW)")
+    plt.ylabel("S22 real U")
     plt.grid()
     
     plt.subplot(428)
     plt.plot(Freq,np.imag(S22))
     plt.xlabel("frecuency (Hz)")
-    plt.ylabel("Power (mW)")
+    plt.ylabel("S22 img U")
     plt.grid()
     
     plt.show()
@@ -337,6 +339,22 @@ def RawDataGeneration(MainDirectory,Positions):
     SaveFrameCSV(RawData,File=MainDirectory+"/RawData.csv")
     
     return RawData
+
+
+def save_txt(descripcion, directorio):
+    # Comprobamos si el directorio existe
+    if not os.path.exists(directorio):
+        # Si no existe, lo creamos
+        os.makedirs(directorio)
+    
+    # Generamos la ruta completa del archivo de texto
+    ruta_archivo = os.path.join(directorio, 'ReadMe.txt')
+
+    # Guardamos el texto en el archivo
+    with open(ruta_archivo, 'w') as archivo:
+        archivo.write(descripcion)
+
+    print(f"La descripción de la medición se ha guardado en {ruta_archivo}")
 
 
 
